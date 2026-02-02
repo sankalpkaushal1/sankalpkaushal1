@@ -48,6 +48,7 @@
             padding: 0 1.5rem;
         }
 
+        /* Navigation */
         nav {
             padding: 1.5rem 0;
             background: var(--bg-white);
@@ -88,6 +89,7 @@
             height: 1rem;
         }
 
+        /* Hero Section */
         .hero {
             padding: 4rem 0 3rem;
             background: var(--bg-white);
@@ -120,6 +122,7 @@
             margin-bottom: 2rem;
         }
 
+        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -147,6 +150,7 @@
             color: var(--text-muted);
         }
 
+        /* Deliverables Section - Highlighted */
         .deliverables-section {
             padding: 3rem 0;
             background: var(--bg-white);
@@ -240,6 +244,58 @@
             height: 0.875rem;
         }
 
+        /* Dashboard Preview Section */
+        .dashboard-section {
+            padding: 3rem 0;
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .dashboard-preview {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dashboard-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .dashboard-caption {
+            padding: 1rem 1.5rem;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-caption-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .dashboard-caption-text strong {
+            color: var(--text-primary);
+        }
+
+        .powerbi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            background: #f3dc00;
+            color: #000;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
         section {
             padding: 3rem 0;
         }
@@ -254,12 +310,14 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Context */
         .context-text {
             font-size: 1rem;
             color: var(--text-secondary);
             max-width: 700px;
         }
 
+        /* My Contributions */
         .contributions-list {
             display: grid;
             gap: 1.5rem;
@@ -298,6 +356,7 @@
             color: var(--text-secondary);
         }
 
+        /* Go-Live Section */
         .golive-section {
             background: var(--bg-white);
             border: 1px solid var(--border-light);
@@ -318,6 +377,7 @@
             color: var(--text-secondary);
         }
 
+        /* Tools */
         .tools-grid {
             display: flex;
             flex-wrap: wrap;
@@ -334,6 +394,7 @@
             color: var(--text-secondary);
         }
 
+        /* CTA Section */
         .cta-section {
             text-align: center;
             padding: 3rem 0;
@@ -375,6 +436,7 @@
             border-color: var(--accent-primary);
         }
 
+        /* Responsive */
         @media (max-width: 700px) {
             .metrics-grid,
             .deliverables-grid {
@@ -384,10 +446,17 @@
             .hero h1 {
                 font-size: 2rem;
             }
+
+            .dashboard-caption {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav>
         <div class="container nav-content">
             <a href="index.html" class="nav-logo">SK</a>
@@ -398,6 +467,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <span class="hero-label">Case Study</span>
@@ -421,6 +491,7 @@
         </div>
     </section>
 
+    <!-- Deliverables Section - Highlighted -->
     <section class="deliverables-section">
         <div class="container">
             <h2 class="section-title">What I Built</h2>
@@ -435,25 +506,45 @@
                     <span class="view-link">View in Google Sheets <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
                 </a>
                 
-                <div class="deliverable-card purple">
+                <a href="https://docs.google.com/spreadsheets/d/18gNaoc2HB3qQkCi3-QpEJbQV8VGhVEBZ/edit?usp=sharing" target="_blank" class="deliverable-card purple clickable">
                     <div class="deliverable-icon">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                     <h3 class="deliverable-title">Risk & Blocker Maps</h3>
                     <p class="deliverable-desc">Pre-mapped risks with response plans for go-live</p>
-                </div>
+                    <span class="view-link">View in Google Sheets <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+                </a>
                 
-                <div class="deliverable-card green">
+                <a href="#dashboard-preview" class="deliverable-card green clickable">
                     <div class="deliverable-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     </div>
-                    <h3 class="deliverable-title">Migration Templates</h3>
-                    <p class="deliverable-desc">Reusable templates customized per client</p>
+                    <h3 class="deliverable-title">Executive Status Report</h3>
+                    <p class="deliverable-desc">Power BI dashboard for leadership visibility</p>
+                    <span class="view-link">View Dashboard <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Power BI Dashboard Preview -->
+    <section class="dashboard-section" id="dashboard-preview">
+        <div class="container">
+            <h2 class="section-title">Executive Status Report Dashboard</h2>
+            <div class="dashboard-preview">
+                <img src="images/powerbi-dashboard.png" alt="Power BI Executive Status Report Dashboard showing KPIs, product status, milestones, and risks">
+                <div class="dashboard-caption">
+                    <span class="dashboard-caption-text"><strong>Interactive dashboard</strong> with RAG status, progress tracking, and risk visibility</span>
+                    <span class="powerbi-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Built with Power BI
+                    </span>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Context Section -->
     <section>
         <div class="container">
             <span class="section-label">Context</span>
@@ -462,6 +553,7 @@
         </div>
     </section>
 
+    <!-- My Contributions Section -->
     <section>
         <div class="container">
             <span class="section-label">My Role</span>
@@ -499,24 +591,36 @@
                         <p>Coordinated daily standups, sprint planning, and retrospectives. Managed 50+ stories per sprint on the JIRA board and added enhancements to improve workflow visibility.</p>
                     </div>
                 </div>
+
+                <div class="contribution-item">
+                    <div class="contribution-number">5</div>
+                    <div class="contribution-content">
+                        <h3>Built Executive Reporting Dashboard</h3>
+                        <p>Created an interactive Power BI dashboard for leadership visibility, featuring RAG status indicators, progress tracking by wave, risk and blocker visibility, and milestone tracking with filters for real-time status updates.</p>
+                    </div>
+                </div>
             </div>
 
+            <!-- Go-Live Section -->
             <div class="golive-section">
                 <h3>Go-Live Coordination</h3>
                 <p>The go-live was a 2-day process. Before we started, I mapped out every potential blocker we might hit and what we'd do if it happened. We had a blocker meeting protocol ready, response plans documented, and nothing was a surprise. When issues came up, we already knew the playbook.</p>
             </div>
 
+            <!-- Tools -->
             <div class="tools-grid">
                 <span class="tool-tag">JIRA</span>
                 <span class="tool-tag">Confluence</span>
                 <span class="tool-tag">Azure DevOps</span>
                 <span class="tool-tag">Excel</span>
+                <span class="tool-tag">Power BI</span>
                 <span class="tool-tag">Microsoft Teams</span>
                 <span class="tool-tag">SharePoint</span>
             </div>
         </div>
     </section>
 
+    <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-links">
