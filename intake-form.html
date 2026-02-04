@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Project Intake Request | Alnylam Pharmaceuticals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-white: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-dark: #d1d5db;
+            --accent: #0f4c81;
+            --accent-light: #e8f0f7;
+            --success: #059669;
+            --warning: #d97706;
+            --error: #dc2626;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--accent);
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 1.5rem;
+            background: var(--border);
+        }
+
+        .header-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.15s;
+        }
+
+        .back-link:hover { color: var(--accent); }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .progress-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .progress-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .progress-step:hover { background: var(--bg-primary); }
+        .progress-step.active { background: var(--accent-light); }
+
+        .progress-step.completed .step-indicator {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .progress-step.active .step-indicator {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .step-indicator {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            border: 2px solid var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-step.active .step-label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .progress-step.completed .step-label {
+            color: var(--text-primary);
+        }
+
+        .form-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .form-section {
+            display: none;
+            padding: 2rem;
+        }
+
+        .form-section.active { display: block; }
+
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-number {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 0.375rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .section-description {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        label .required { color: var(--error); }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        input::placeholder, textarea::placeholder { color: var(--text-muted); }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+
+        .field-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.375rem;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .option-item:hover {
+            border-color: var(--border-dark);
+            background: var(--bg-primary);
+        }
+
+        .option-item.selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .option-item input { display: none; }
+
+        .option-radio {
+            width: 1.125rem;
+            height: 1.125rem;
+            border: 2px solid var(--border-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .option-item.selected .option-radio {
+            border-color: var(--accent);
+        }
+
+        .option-item.selected .option-radio::after {
+            content: '';
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .option-checkbox {
+            width: 1.125rem;
+            height: 1.125rem;
+            border: 2px solid var(--border-dark);
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .option-item.selected .option-checkbox {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .option-label {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .option-description {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.125rem;
+        }
+
+        .budget-field {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .budget-input-wrapper {
+            position: relative;
+        }
+
+        .budget-input-wrapper::before {
+            content: '$';
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .budget-input-wrapper input { padding-left: 1.75rem; }
+
+        .budget-suffix {
+            padding: 0.625rem 0;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .review-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .review-table tr:last-child { border-bottom: none; }
+
+        .review-table th {
+            text-align: left;
+            padding: 0.875rem 0;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            width: 160px;
+        }
+
+        .review-table td {
+            padding: 0.875rem 0;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+            font-family: inherit;
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--border-dark);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover { background: #0a3d68; }
+
+        .demo-banner {
+            background: #fef3c7;
+            border-bottom: 1px solid #fcd34d;
+            padding: 0.625rem 2rem;
+            font-size: 0.8125rem;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-content {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .success-icon {
+            width: 4rem;
+            height: 4rem;
+            background: #ecfdf5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .success-icon svg {
+            width: 2rem;
+            height: 2rem;
+            color: var(--success);
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .next-steps {
+            background: var(--bg-primary);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .next-steps-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .next-steps-list {
+            list-style: none;
+        }
+
+        .next-steps-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.625rem 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .step-number {
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .page-footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .page-footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .page-footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .main { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .progress-steps { flex-direction: row; overflow-x: auto; }
+            .progress-step { flex-direction: column; text-align: center; min-width: 80px; }
+            .form-row { grid-template-columns: 1fr; }
+            .header-content { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-brand">
+                <span class="header-logo">Alnylam Pharmaceuticals</span>
+                <span class="header-divider"></span>
+                <span class="header-title">IT Project Management Office</span>
+            </div>
+            <a href="alnylam-pmo.html" class="back-link">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                Back to Case Study
+            </a>
+        </div>
+    </header>
+
+    <main class="main">
+        <aside class="sidebar">
+            <div class="progress-card">
+                <div class="progress-title">Form Progress</div>
+                <div class="progress-steps">
+                    <div class="progress-step active" data-step="1" onclick="goToSection(1)">
+                        <span class="step-indicator">1</span>
+                        <span class="step-label">Project Details</span>
+                    </div>
+                    <div class="progress-step" data-step="2" onclick="goToSection(2)">
+                        <span class="step-indicator">2</span>
+                        <span class="step-label">Business Case</span>
+                    </div>
+                    <div class="progress-step" data-step="3" onclick="goToSection(3)">
+                        <span class="step-indicator">3</span>
+                        <span class="step-label">Resources</span>
+                    </div>
+                    <div class="progress-step" data-step="4" onclick="goToSection(4)">
+                        <span class="step-indicator">4</span>
+                        <span class="step-label">Alignment</span>
+                    </div>
+                    <div class="progress-step" data-step="5" onclick="goToSection(5)">
+                        <span class="step-indicator">5</span>
+                        <span class="step-label">Review</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="form-card">
+            <div class="demo-banner">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span><strong>Portfolio Demo</strong> — This form demonstrates the standardized intake process</span>
+            </div>
+
+            <div class="form-section active" data-section="1">
+                <div class="section-header">
+                    <div class="section-number">Section 1 of 5</div>
+                    <h2 class="section-title">Project Details</h2>
+                    <p class="section-description">Basic information about your project request</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Project Name <span class="required">*</span></label>
+                    <input type="text" id="projectName" placeholder="Enter a descriptive project name">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Requested By <span class="required">*</span></label>
+                        <input type="text" id="requestedBy" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Department <span class="required">*</span></label>
+                        <select id="department">
+                            <option value="">Select department</option>
+                            <option value="clinical">Clinical Operations</option>
+                            <option value="research">Research & Development</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="finance">Finance</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="it">Information Technology</option>
+                            <option value="legal">Legal & Compliance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Project Sponsor <span class="required">*</span></label>
+                        <input type="text" id="sponsor" placeholder="Executive sponsor name">
+                        <p class="field-hint">The executive accountable for this project</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Sponsor Email</label>
+                        <input type="email" id="sponsorEmail" placeholder="sponsor@alnylam.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Project Description <span class="required">*</span></label>
+                    <textarea id="description" placeholder="Describe the project scope, objectives, and expected outcomes"></textarea>
+                </div>
+            </div>
+
+            <div class="form-section" data-section="2">
+                <div class="section-header">
+                    <div class="section-number">Section 2 of 5</div>
+                    <h2 class="section-title">Business Case</h2>
+                    <p class="section-description">Justification and expected benefits</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Business Benefits <span class="required">*</span></label>
+                    <textarea id="benefits" placeholder="Describe the expected benefits (cost savings, efficiency gains, compliance requirements, etc.)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Impact of Not Proceeding</label>
+                    <textarea id="consequences" placeholder="What are the risks or costs if this project is not approved?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Priority Level <span class="required">*</span></label>
+                    <div class="option-group">
+                        <div class="option-item" onclick="selectOption(this, 'priority')">
+                            <input type="radio" name="priority" value="critical">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">Critical</div>
+                                <div class="option-description">Regulatory requirement or business-critical deadline</div>
+                            </div>
+                        </div>
+                        <div class="option-item" onclick="selectOption(this, 'priority')">
+                            <input type="radio" name="priority" value="high">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">High</div>
+                                <div class="option-description">Significant business impact, needed within 6 months</div>
+                            </div>
+                        </div>
+                        <div class="option-item" onclick="selectOption(this, 'priority')">
+                            <input type="radio" name="priority" value="medium">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">Medium</div>
+                                <div class="option-description">Important improvement, flexible timeline</div>
+                            </div>
+                        </div>
+                        <div class="option-item" onclick="selectOption(this, 'priority')">
+                            <input type="radio" name="priority" value="low">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">Low</div>
+                                <div class="option-description">Nice to have, can be scheduled as capacity allows</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section" data-section="3">
+                <div class="section-header">
+                    <div class="section-number">Section 3 of 5</div>
+                    <h2 class="section-title">Resources & Timeline</h2>
+                    <p class="section-description">Budget, timeline, and resource requirements</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Estimated Budget <span class="required">*</span></label>
+                    <div class="budget-field">
+                        <div class="budget-input-wrapper">
+                            <input type="number" id="budget" placeholder="0" min="0">
+                        </div>
+                        <span class="budget-suffix">USD (thousands)</span>
+                    </div>
+                    <p class="field-hint">Enter amount in thousands (e.g., 500 = $500,000)</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Desired Start Date <span class="required">*</span></label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Completion Date <span class="required">*</span></label>
+                        <input type="date" id="endDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Resources Required <span class="required">*</span></label>
+                    <p class="field-hint" style="margin-bottom: 0.75rem;">Select all that apply</p>
+                    <div class="option-group">
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="resources" value="internal-it">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Internal IT Staff</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="resources" value="contractors">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Contract Resources</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="resources" value="vendor">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">External Vendor</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="resources" value="business-smes">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Business Subject Matter Experts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section" data-section="4">
+                <div class="section-header">
+                    <div class="section-number">Section 4 of 5</div>
+                    <h2 class="section-title">Strategic Alignment</h2>
+                    <p class="section-description">How this project supports organizational goals</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Strategic Objectives <span class="required">*</span></label>
+                    <p class="field-hint" style="margin-bottom: 0.75rem;">Select all objectives this project supports</p>
+                    <div class="option-group">
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="objectives" value="digital">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Digital Transformation</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="objectives" value="efficiency">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Operational Efficiency</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="objectives" value="compliance">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Regulatory Compliance</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="objectives" value="innovation">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Innovation & R&D Support</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="objectives" value="security">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Security & Risk Mitigation</span>
+                        </div>
+                        <div class="option-item" onclick="toggleOption(this)">
+                            <input type="checkbox" name="objectives" value="infrastructure">
+                            <span class="option-checkbox">✓</span>
+                            <span class="option-label">Infrastructure Modernization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Technology Fit</label>
+                    <div class="option-group">
+                        <div class="option-item" onclick="selectOption(this, 'techfit')">
+                            <input type="radio" name="techfit" value="existing">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">Uses existing technology stack</div>
+                                <div class="option-description">Leverages current platforms and tools</div>
+                            </div>
+                        </div>
+                        <div class="option-item" onclick="selectOption(this, 'techfit')">
+                            <input type="radio" name="techfit" value="new">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">Requires new technology</div>
+                                <div class="option-description">New platform, tool, or vendor required</div>
+                            </div>
+                        </div>
+                        <div class="option-item" onclick="selectOption(this, 'techfit')">
+                            <input type="radio" name="techfit" value="unsure">
+                            <span class="option-radio"></span>
+                            <div>
+                                <div class="option-label">To be determined</div>
+                                <div class="option-description">Requires technical assessment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section" data-section="5">
+                <div class="section-header">
+                    <div class="section-number">Section 5 of 5</div>
+                    <h2 class="section-title">Review & Submit</h2>
+                    <p class="section-description">Verify your information before submission</p>
+                </div>
+
+                <table class="review-table">
+                    <tr><th>Project Name</th><td id="reviewName">—</td></tr>
+                    <tr><th>Requested By</th><td id="reviewRequestor">—</td></tr>
+                    <tr><th>Department</th><td id="reviewDept">—</td></tr>
+                    <tr><th>Sponsor</th><td id="reviewSponsor">—</td></tr>
+                    <tr><th>Priority</th><td id="reviewPriority">—</td></tr>
+                    <tr><th>Budget</th><td id="reviewBudget">—</td></tr>
+                    <tr><th>Timeline</th><td id="reviewTimeline">—</td></tr>
+                    <tr><th>Resources</th><td id="reviewResources">—</td></tr>
+                </table>
+            </div>
+
+            <div class="form-section" data-section="success">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h2 class="success-title">Request Submitted</h2>
+                    <p class="success-description">Your project intake request has been received and will be reviewed by the IT PMO within 5 business days.</p>
+
+                    <div class="next-steps">
+                        <div class="next-steps-title">What Happens Next</div>
+                        <ul class="next-steps-list">
+                            <li><span class="step-number">1</span><span>IT PMO reviews submission for completeness</span></li>
+                            <li><span class="step-number">2</span><span>IT Directors evaluate strategic alignment</span></li>
+                            <li><span class="step-number">3</span><span>Gate 0 review meeting scheduled</span></li>
+                            <li><span class="step-number">4</span><span>Decision communicated to requestor</span></li>
+                        </ul>
+                    </div>
+
+                    <a href="alnylam-pmo.html" class="btn btn-primary">Return to Case Study</a>
+                </div>
+            </div>
+
+            <div class="form-footer" id="formFooter">
+                <button class="btn btn-secondary" id="prevBtn" onclick="navigate(-1)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    Previous
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="navigate(1)">
+                    Continue
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        Part of <a href="alnylam-pmo.html">Alnylam IT PMO Framework</a> · Built by <a href="index.html">Sankalp Kaushal</a>
+    </footer>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 5;
+
+        function navigate(direction) {
+            const newSection = currentSection + direction;
+            if (newSection < 1) return;
+            if (currentSection === 5 && direction === 1) { showSuccess(); return; }
+            if (newSection > totalSections) return;
+            if (newSection === 5) updateReviewSummary();
+            goToSection(newSection);
+        }
+
+        function goToSection(section) {
+            if (section > totalSections || section < 1) return;
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+            document.querySelectorAll('.progress-step').forEach((step, i) => {
+                step.classList.remove('active', 'completed');
+                if (i + 1 < section) step.classList.add('completed');
+                if (i + 1 === section) step.classList.add('active');
+            });
+            document.getElementById('prevBtn').style.visibility = section === 1 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').innerHTML = section === 5 
+                ? 'Submit Request <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
+                : 'Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+            currentSection = section;
+        }
+
+        function showSuccess() {
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            document.querySelector('[data-section="success"]').classList.add('active');
+            document.getElementById('formFooter').style.display = 'none';
+            document.querySelectorAll('.progress-step').forEach(step => {
+                step.classList.remove('active');
+                step.classList.add('completed');
+            });
+        }
+
+        function selectOption(element, groupName) {
+            element.closest('.option-group').querySelectorAll('.option-item').forEach(item => {
+                item.classList.remove('selected');
+                item.querySelector('input').checked = false;
+            });
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+        }
+
+        function toggleOption(element) {
+            element.classList.toggle('selected');
+            element.querySelector('input').checked = !element.querySelector('input').checked;
+        }
+
+        function updateReviewSummary() {
+            document.getElementById('reviewName').textContent = document.getElementById('projectName').value || '—';
+            document.getElementById('reviewRequestor').textContent = document.getElementById('requestedBy').value || '—';
+            const dept = document.getElementById('department');
+            document.getElementById('reviewDept').textContent = dept.options[dept.selectedIndex]?.text || '—';
+            document.getElementById('reviewSponsor').textContent = document.getElementById('sponsor').value || '—';
+            const priority = document.querySelector('input[name="priority"]:checked');
+            document.getElementById('reviewPriority').textContent = priority ? priority.value.charAt(0).toUpperCase() + priority.value.slice(1) : '—';
+            const budget = document.getElementById('budget').value;
+            document.getElementById('reviewBudget').textContent = budget ? '$' + Number(budget).toLocaleString() + 'K' : '—';
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            document.getElementById('reviewTimeline').textContent = (start && end) ? `${start} to ${end}` : '—';
+            const resources = [...document.querySelectorAll('input[name="resources"]:checked')].map(i => i.closest('.option-item').querySelector('.option-label').textContent);
+            document.getElementById('reviewResources').textContent = resources.length ? resources.join(', ') : '—';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            goToSection(1);
+            document.getElementById('prevBtn').style.visibility = 'hidden';
+        });
+    </script>
+</body>
+</html>
